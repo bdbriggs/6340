@@ -1,0 +1,14 @@
+/* Give your heading some flair */
+.custom-heading {
+    font-family: "Segoe UI", Tahoma, sans-serif;
+    letter-spacing: 1px;
+    text-shadow: 0 0 8px rgba(255, 140, 0, 0.7);
+  }
+  
+  /* Optional: limit canvas size on wide screens */
+  #splash-wrap canvas {
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
+  
