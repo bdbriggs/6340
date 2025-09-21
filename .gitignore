@@ -1,0 +1,27 @@
+# macOS
+.DS_Store
+
+# Node (server)
+server/node_modules/
+server/.env
+server/.env.local
+server/npm-debug.log*
+
+# If you ever accidentally created root-level node stuff
+node_modules/
+package-lock.json
+npm-debug.log*
+
+# VS Code
+.vscode/
+.DS_Store
+server/node_modules/
+server/.env
+server/.env.local
+server/npm-debug.log*
+.vscode/
+.DS_Store
+server/node_modules/
+server/.env
+server/.env.local
+.vscode/
