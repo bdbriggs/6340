@@ -11,4 +11,12 @@
     height: auto;
     display: block;
   }
+  /* For OPTION B (CSS background) */
+#splash-wrap {
+  background-image: url('/images/splash.jpg');
+  background-size: cover;
+  background-position: center;
+  min-height: 320px;   /* must have height or you’ll “see nothing” */
+}
+
   
