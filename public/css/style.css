@@ -1,17 +1,51 @@
+\/* Fade-in animation for all pages */
+.fade-in {
+  opacity: 0;
+  animation: fadeIn 0.8s ease-in-out forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Staggered fade-in for multiple elements */
+.fade-in-delay-1 {
+  opacity: 0;
+  animation: fadeIn 0.8s ease-in-out 0.2s forwards;
+}
+
+.fade-in-delay-2 {
+  opacity: 0;
+  animation: fadeIn 0.8s ease-in-out 0.4s forwards;
+}
+
+.fade-in-delay-3 {
+  opacity: 0;
+  animation: fadeIn 0.8s ease-in-out 0.6s forwards;
+}
+
 /* Give your heading some flair */
 .custom-heading {
-    font-family: "Segoe UI", Tahoma, sans-serif;
-    letter-spacing: 1px;
-    text-shadow: 0 0 8px rgba(255, 140, 0, 0.7);
-  }
-  
-  /* Optional: limit canvas size on wide screens */
-  #splash-wrap canvas {
-    max-width: 100%;
-    height: auto;
-    display: block;
-  }
-  /* For OPTION B (CSS background) */
+  font-family: "Segoe UI", Tahoma, sans-serif;
+  letter-spacing: 1px;
+  text-shadow: 0 0 8px rgba(255, 140, 0, 0.7);
+}
+
+/* Optional: limit canvas size on wide screens */
+#splash-wrap canvas {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* For OPTION B (CSS background) */
 #splash-wrap {
   background-image: url('/images/splash.jpg');
   background-size: cover;
@@ -19,4 +53,43 @@
   min-height: 320px;   /* must have height or you’ll “see nothing” */
 }
 
-  
+/* Wallet button styles – moved OUT of #splash-wrap */
+.wallet-btn {
+  background-color: #4CAF50; /* green */
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  font-size: 14px;
+  cursor: pointer;
+  border-radius: 6px;
+  margin-left: 10px;
+  transition: background 0.2s ease;
+}
+
+.wallet-btn:hover {
+  background-color: #45a049;
+}
+
+/* Connected wallet button styles */
+.wallet-btn.btn-outline-success {
+  background-color: transparent;
+  border: 2px solid #4CAF50;
+  color: #4CAF50;
+}
+
+.wallet-btn.btn-outline-success:hover {
+  background-color: #4CAF50;
+  color: white;
+}
+
+/* Warning button for MetaMask not installed */
+.wallet-btn.btn-warning {
+  background-color: #ffc107;
+  color: #000;
+  border: none;
+}
+
+.wallet-btn.btn-warning:hover {
+  background-color: #e0a800;
+  color: #000;
+}

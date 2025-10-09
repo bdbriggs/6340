@@ -11,8 +11,8 @@
     rel="stylesheet"
   />
 
-  <!-- Your custom CSS -->
-  <link rel="stylesheet" href="style.css" />
+  <!-- Your custom CSS (served from Express static) -->
+  <link rel="stylesheet" href="/css/style.css" />
 </head>
 <body class="bg-dark text-light">
 
@@ -20,24 +20,90 @@
   <header>
     <nav class="navbar navbar-expand-lg navbar-dark bg-black border-bottom border-secondary">
       <div class="container">
-        <a class="navbar-brand" href="index.html">Dumpster Fire Coding</a>
-        <ul class="navbar-nav ms-auto">
-          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
-          <li class="nav-item"><a class="nav-link" href="featured.html">Featured</a></li>
-          <li class="nav-item"><a class="nav-link active" aria-current="page" href="gallery.html">Gallery</a></li>
-          <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
-          <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
-        </ul>
+        <a class="navbar-brand" href="/">Dumpster Fire Coding</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav"
+          aria-controls="nav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div id="nav" class="collapse navbar-collapse">
+          <ul class="navbar-nav ms-auto align-items-lg-center">
+            <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+            <li class="nav-item"><a class="nav-link" href="/featured">Featured</a></li>
+            <li class="nav-item"><a class="nav-link active" aria-current="page" href="/gallery">Gallery</a></li>
+            <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
+            <li class="nav-item"><a class="nav-link" href="/contact">Contact</a></li>
+
+            <!-- Connect Wallet button as a proper nav item -->
+            <li class="nav-item ms-lg-3">
+              <button id="connectWalletBtn"
+                      type="button"
+                      class="btn btn-success wallet-btn w-100 w-lg-auto">
+                Connect Wallet
+              </button>
+            </li>
+          </ul>
+        </div>
       </div>
     </nav>
   </header>
 
-  <!-- Gallery Placeholder -->
-  <main class="py-5 text-center">
+  <!-- Gallery -->
+  <main class="py-5">
     <div class="container">
-      <h1 class="display-4 mb-4">Gallery</h1>
-      <p class="lead">Coming soon…</p>
-      <!-- Future gallery content will go here -->
+      <h1 class="display-4 mb-4 text-center fade-in">Gallery</h1>
+
+      <% if (!photos || photos.length === 0) { %>
+        <p class="lead text-center">No photos yet. Check back soon!</p>
+      <% } else { %>
+        <!-- Grid of "frames" (cards) -->
+        <div class="row g-4 fade-in-delay-1">
+          <% photos.forEach(p => { %>
+            <div class="col-12 col-sm-6 col-lg-4">
+              <div class="card h-100 bg-black text-light border-secondary">
+                <div class="ratio ratio-4x3">
+                  <img
+                    src="<%= p.image_url %>"
+                    class="card-img-top object-fit-cover"
+                    alt="<%= p.title %>"
+                    loading="lazy"
+                  />
+                </div>
+                <div class="card-body">
+                  <h5 class="card-title mb-1"><%= p.title %></h5>
+                  <% if (p.caption) { %>
+                    <p class="card-text text-secondary mb-2"><%= p.caption %></p>
+                  <% } %>
+                  <% if (p.created_at) { %>
+                    <small class="text-muted">
+                      <%= new Date(p.created_at).toLocaleDateString() %>
+                    </small>
+                  <% } %>
+                </div>
+              </div>
+            </div>
+          <% }) %>
+        </div>
+
+        <!-- Optional: simple pagination controls if you pass page info -->
+        <% if (typeof page !== 'undefined' && typeof totalPages !== 'undefined' && totalPages > 1) { %>
+          <nav class="mt-4" aria-label="Gallery pages">
+            <ul class="pagination justify-content-center">
+              <li class="page-item <%= page <= 1 ? 'disabled' : '' %>">
+                <a class="page-link" href="/gallery?page=<%= page - 1 %>">Previous</a>
+              </li>
+              <% for (let i = 1; i <= totalPages; i++) { %>
+                <li class="page-item <%= i === page ? 'active' : '' %>">
+                  <a class="page-link" href="/gallery?page=<%= i %>"><%= i %></a>
+                </li>
+              <% } %>
+              <li class="page-item <%= page >= totalPages ? 'disabled' : '' %>">
+                <a class="page-link" href="/gallery?page=<%= page + 1 %>">Next</a>
+              </li>
+            </ul>
+          </nav>
+        <% } %>
+      <% } %>
     </div>
   </main>
 
@@ -54,6 +120,9 @@
 
   <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Wallet integration -->
+  <script src="/js/wallet.js" defer></script>
 
   <!-- Dynamic Year -->
   <script>

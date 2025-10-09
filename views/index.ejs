@@ -14,31 +14,43 @@
 <body class="bg-dark text-light">
 
   <!-- ===== HEADER / NAVBAR ===== -->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-black border-bottom border-secondary">
-    <div class="container">
-      <a class="navbar-brand" href="/">Dumpster Fire Coding</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div id="mainNav" class="collapse navbar-collapse">
-        <ul class="navbar-nav ms-auto">
-          <li class="nav-item"><a class="nav-link active" href="/">Home</a></li>
-          <li class="nav-item"><a class="nav-link" href="/featured">Featured</a></li>
-          <li class="nav-item"><a class="nav-link" href="/gallery">Gallery</a></li>
-          <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
-          <li class="nav-item"><a class="nav-link" href="/contact">Contact</a></li>
-        </ul>
-      </div>
+<nav class="navbar navbar-expand-lg navbar-dark bg-black border-bottom border-secondary">
+  <div class="container">
+    <a class="navbar-brand" href="/">Dumpster Fire Coding</a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div id="mainNav" class="collapse navbar-collapse">
+      <ul class="navbar-nav ms-auto align-items-lg-center">
+        <li class="nav-item"><a class="nav-link active" href="/">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="/featured">Featured</a></li>
+        <li class="nav-item"><a class="nav-link" href="/gallery">Gallery</a></li>
+        <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
+        <li class="nav-item"><a class="nav-link" href="/contact">Contact</a></li>
+
+        <!-- Connect Wallet button as a proper nav item -->
+        <li class="nav-item ms-lg-3">
+          <button id="connectWalletBtn"
+                  type="button"
+                  class="btn btn-success wallet-btn w-100 w-lg-auto">
+            Connect Wallet
+          </button>
+        </li>
+      </ul>
     </div>
-  </nav>
+  </div>
+</nav>
+
 
   <!-- ===== MAIN / SPLASH ===== -->
   <main class="py-5 text-center">
     <div class="container">
-      <h1 class="display-4 mb-3">Dumpster Fire Coding</h1>
-      <p class="lead mb-4">Where our code is lit.</p>
+      <h1 class="display-4 mb-3 fade-in">Dumpster Fire Coding</h1>
+      <p class="lead mb-4 fade-in-delay-1">Where our code is lit.</p>
 
-      <div id="splash-wrap" class="border border-secondary rounded overflow-hidden mx-auto">
+      <div id="splash-wrap" class="border border-secondary rounded overflow-hidden mx-auto fade-in-delay-2">
         <!-- p5.js canvas will mount here -->
         <div id="splash-canvas"></div>
       </div>
@@ -64,6 +76,9 @@
 
   <!-- Your splash code (served from /public/js) -->
   <script src="/js/sketch.js" defer></script>
+
+  <!-- Wallet integration -->
+  <script src="/js/wallet.js" defer></script>
 
   <!-- Tiny util: current year -->
   <script>

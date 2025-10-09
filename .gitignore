@@ -25,3 +25,15 @@ server/node_modules/
 server/.env
 server/.env.local
 .vscode/
+
+# Ignore environment files
+.env
+
+# Node modules
+node_modules/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
