@@ -33,19 +33,35 @@ if (process.env.SMTP_HOST) {
 app.get('/__ping',  (req, res) => res.type('text').send('pong'));
 app.get('/__where', (req, res) => res.json({ viewsDir: app.get('views'), cwd: process.cwd() }));
 
+/* ===== DB boot (professor's utils/database.js) ===== */
+(async () => {
+  try {
+    const { connect } = require('./utils/database.js');
+    await connect();                          // sets up the mysql2 pool
+    console.log('[db] connected');
+  } catch (e) {
+    console.error('[db] connection failed:', e);
+  }
+})();
+
 /* ===== Page routes ===== */
 app.get('/',         (req, res) => res.render('index',    { title: 'Home' }));
 app.get('/featured', (req, res) => res.render('featured', { title: 'Featured' }));
-app.get('/gallery',  (req, res) => res.render('gallery',  { title: 'Gallery' }));
 app.get('/about',    (req, res) => res.render('about',    { title: 'About' }));
 app.get('/contact',  (req, res) => res.render('contact',  { title: 'Contact' }));
+
+/* ===== Image pages ===== */
+app.get('/popart',       (req, res) => res.render('popart',       { title: 'Pop Art Dumpster Fire' }));
+app.get('/redrectangles', (req, res) => res.render('redrectangles', { title: 'Red Rectangles' }));
+app.get('/sakura',       (req, res) => res.render('sakura',       { title: 'Sakura' }));
+
+const galleryRouter = require("./routes/gallery");
+app.use(galleryRouter);
 
 /* ===== API: Contact form (JSON) ===== */
 app.post('/api/contact', async (req, res) => {
   try {
     const { name, email, subject, message, consent, company } = req.body || {};
-
-    // Honeypot + basic validation
     if (company) return res.json({ ok: true }); // bot → pretend success
     if (!name || !email || !subject || !message || consent !== true) {
       return res.status(400).json({ ok: false, error: 'Missing required fields.' });
@@ -55,11 +71,7 @@ app.post('/api/contact', async (req, res) => {
       host: process.env.SMTP_HOST,
       port: Number(process.env.SMTP_PORT || 587),
       secure: Number(process.env.SMTP_PORT) === 465,
-      auth: {
-        user: process.env.SMTP_USER,
-        pass: process.env.SMTP_PASS,
-      },
-      // tls: { servername: 'smtp.gmail.com' }, // uncomment if your network needs SNI explictly
+      auth: { user: process.env.SMTP_USER, pass: process.env.SMTP_PASS },
     });
 
     const info = await transporter.sendMail({
