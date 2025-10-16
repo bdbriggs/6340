@@ -62,17 +62,48 @@ app.use(galleryRouter);
 app.post('/api/contact', async (req, res) => {
   try {
     const { name, email, subject, message, consent, company } = req.body || {};
-    if (company) return res.json({ ok: true }); // bot → pretend success
+    
+    // Honeypot check (bot detection)
+    if (company) return res.json({ ok: true }); 
+    
+    // Validation
     if (!name || !email || !subject || !message || consent !== true) {
       return res.status(400).json({ ok: false, error: 'Missing required fields.' });
     }
 
+    // Check if SMTP is configured
+    if (!process.env.SMTP_HOST || !process.env.SMTP_USER || !process.env.SMTP_PASS) {
+      console.warn('[contact] SMTP not configured, logging contact form submission');
+      console.log('[contact] Submission:', { name, email, subject, message });
+      return res.json({ ok: true, message: 'Contact form received (email not configured)' });
+    }
+
+    // Create transporter with better error handling
     const transporter = nodemailer.createTransport({
       host: process.env.SMTP_HOST,
       port: Number(process.env.SMTP_PORT || 587),
       secure: Number(process.env.SMTP_PORT) === 465,
-      auth: { user: process.env.SMTP_USER, pass: process.env.SMTP_PASS },
+      auth: { 
+        user: process.env.SMTP_USER, 
+        pass: process.env.SMTP_PASS 
+      },
+      // Add timeout and connection options
+      connectionTimeout: 10000,
+      greetingTimeout: 10000,
+      socketTimeout: 10000,
     });
+
+    // Verify connection before sending
+    try {
+      await transporter.verify();
+      console.log('[contact] SMTP connection verified');
+    } catch (verifyErr) {
+      console.error('[contact] SMTP verification failed:', verifyErr.message);
+      return res.status(500).json({ 
+        ok: false, 
+        error: 'Email service temporarily unavailable. Please try again later.' 
+      });
+    }
 
     const info = await transporter.sendMail({
       from: process.env.SMTP_FROM || process.env.SMTP_USER,
@@ -85,11 +116,29 @@ app.post('/api/contact', async (req, res) => {
              <p>${String(message || '').replace(/\n/g, '<br>')}</p>`,
     });
 
-    console.log('[contact] sent:', info.messageId, info.response);
+    console.log('[contact] sent successfully:', info.messageId);
     return res.json({ ok: true });
+    
   } catch (err) {
     console.error('POST /api/contact error:', err);
-    return res.status(500).json({ ok: false, error: 'Email send failed.' });
+    
+    // Provide more specific error messages
+    if (err.code === 'EAUTH') {
+      return res.status(500).json({ 
+        ok: false, 
+        error: 'Email authentication failed. Please check SMTP settings.' 
+      });
+    } else if (err.code === 'ECONNECTION') {
+      return res.status(500).json({ 
+        ok: false, 
+        error: 'Unable to connect to email server. Please try again later.' 
+      });
+    } else {
+      return res.status(500).json({ 
+        ok: false, 
+        error: 'Email send failed. Please try again later.' 
+      });
+    }
   }
 });
 
