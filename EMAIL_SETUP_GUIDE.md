@@ -93,3 +93,5 @@ Simply don't set the SMTP environment variables, and the form will:
 - Never commit your .env file to version control
 - Use App Passwords instead of your main account password
 - Consider using environment-specific email services for production
+
+

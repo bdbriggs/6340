@@ -23,7 +23,7 @@ function preload() {
 function setup() {
   const parent = document.getElementById('splash-canvas');
   const w = (parent && parent.clientWidth) ? parent.clientWidth : 800;
-  const h = Math.max(Math.round(w * 0.6), 320); // keep decent height
+  const h = Math.max(Math.round(w * 0.75), 400); // increased height to show full dumpster fire including wheels
 
   cnv = createCanvas(w, h);
   if (parent) cnv.parent('splash-canvas');
@@ -34,7 +34,7 @@ function windowResized() {
   const parent = document.getElementById('splash-canvas');
   if (!parent) return;
   const w = parent.clientWidth || 800;
-  const h = Math.max(Math.round(w * 0.6), 320);
+  const h = Math.max(Math.round(w * 0.75), 400); // increased height to show full dumpster fire including wheels
   resizeCanvas(w, h);
 }
 
@@ -56,7 +56,9 @@ function draw() {
     const offsetX = random(-2, 2);
     const offsetY = random(-2, 2);
 
-    image(img, x + offsetX, height / 2 + offsetY);
+    // Center the image vertically to show full dumpster fire including wheels
+    const imgY = (height - img.height) / 2;
+    image(img, x + offsetX, imgY + offsetY);
 
     noTint();
 

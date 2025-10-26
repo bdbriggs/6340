@@ -38,19 +38,42 @@
   text-shadow: 0 0 8px rgba(255, 140, 0, 0.7);
 }
 
-/* Optional: limit canvas size on wide screens */
-#splash-wrap canvas {
-  max-width: 100%;
-  height: auto;
-  display: block;
-}
-
-/* For OPTION B (CSS background) */
+/* Splash animation sizing */
 #splash-wrap {
   background-image: url('/images/splash.jpg');
   background-size: cover;
   background-position: center;
-  min-height: 320px;   /* must have height or you’ll “see nothing” */
+  min-height: 300px;
+  max-width: 600px;
+  max-height: 400px;
+  width: 100%;
+  aspect-ratio: 3/2;
+}
+
+#splash-wrap canvas {
+  max-width: 100%;
+  max-height: 100%;
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: contain;
+}
+
+/* Responsive sizing for different screens */
+@media (max-width: 768px) {
+  #splash-wrap {
+    max-width: 90%;
+    max-height: 300px;
+    min-height: 250px;
+  }
+}
+
+@media (max-width: 480px) {
+  #splash-wrap {
+    max-width: 95%;
+    max-height: 250px;
+    min-height: 200px;
+  }
 }
 
 /* Wallet button styles – moved OUT of #splash-wrap */
