@@ -5,12 +5,14 @@
   "description": "Nodemailer contact form backend for Dumpster Fire Coding",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
-    "dev": "nodemon server.js",
+    "start": "node start.js",
+    "start:legacy": "node server.js",
+    "dev": "nodemon start.js",
     "build": "echo 'No build step required for this Node.js app'",
     "docker:build": "docker build -t dfc-contact-server .",
     "docker:run": "docker run -p 3000:3000 --env-file .env dfc-contact-server",
-    "docker:compose": "docker-compose up -d"
+    "docker:compose": "docker-compose up -d",
+    "test": "echo 'No tests configured'"
   },
   "author": "Baily Atchley",
   "license": "MIT",

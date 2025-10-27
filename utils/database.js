@@ -11,6 +11,17 @@ async function connect() {
   const dbPort = process.env.MYSQL_PORT || process.env.DB_PORT || '3306';
   const dbName = process.env.MYSQL_DATABASE || process.env.DB_NAME;
   
+  // Validate required environment variables
+  if (!dbUser || !dbPassword || !dbHost || !dbName) {
+    const missing = [];
+    if (!dbUser) missing.push('DB_USER/MYSQL_USER');
+    if (!dbPassword) missing.push('DB_PASSWORD/MYSQL_PASSWORD');
+    if (!dbHost) missing.push('DB_HOST/MYSQL_HOST');
+    if (!dbName) missing.push('DB_NAME/MYSQL_DATABASE');
+    
+    throw new Error(`Missing required database environment variables: ${missing.join(', ')}`);
+  }
+  
   let cString =
     "mysql://" +
     dbUser +
@@ -26,7 +37,6 @@ async function connect() {
     .createPool({
       connectionLimit: 10,
       acquireTimeout: 60000,
-      timeout: 60000,
       reconnect: true,
       uri: cString
     })

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Gallery Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .test-result { padding: 10px; margin: 10px 0; border-radius: 5px; }
+        .success { background-color: #d4edda; color: #155724; }
+        .error { background-color: #f8d7da; color: #721c24; }
+        .info { background-color: #d1ecf1; color: #0c5460; }
+    </style>
+</head>
+<body>
+    <h1>Gallery Debug Test</h1>
+    
+    <div class="test-result info">
+        <h3>Test 1: Server Response</h3>
+        <p>Testing if the gallery endpoint responds...</p>
+        <div id="server-test">Testing...</div>
+    </div>
+    
+    <div class="test-result info">
+        <h3>Test 2: Image Accessibility</h3>
+        <p>Testing if images are accessible...</p>
+        <div id="image-test">Testing...</div>
+    </div>
+    
+    <div class="test-result info">
+        <h3>Test 3: Database Data</h3>
+        <p>Testing if database is returning data...</p>
+        <div id="db-test">Testing...</div>
+    </div>
+
+    <script>
+        // Test 1: Server Response
+        fetch('/gallery')
+            .then(response => {
+                document.getElementById('server-test').innerHTML = 
+                    `<strong>Status:</strong> ${response.status} ${response.statusText}<br>
+                     <strong>Content-Type:</strong> ${response.headers.get('content-type')}`;
+                return response.text();
+            })
+            .then(html => {
+                const imageCount = (html.match(/col-12 col-sm-6 col-lg-4/g) || []).length;
+                document.getElementById('db-test').innerHTML = 
+                    `<strong>Images found:</strong> ${imageCount}<br>
+                     <strong>HTML length:</strong> ${html.length} characters`;
+            })
+            .catch(error => {
+                document.getElementById('server-test').innerHTML = 
+                    `<strong>Error:</strong> ${error.message}`;
+            });
+
+        // Test 2: Image Accessibility
+        const images = ['/images/sakura.png', '/images/RedRectangles.png', '/images/PopArtDumpsterFire.png'];
+        let imageResults = [];
+        
+        images.forEach(img => {
+            fetch(img)
+                .then(response => {
+                    imageResults.push(`${img}: ${response.status}`);
+                    if (imageResults.length === images.length) {
+                        document.getElementById('image-test').innerHTML = 
+                            imageResults.join('<br>');
+                    }
+                })
+                .catch(error => {
+                    imageResults.push(`${img}: ERROR - ${error.message}`);
+                    if (imageResults.length === images.length) {
+                        document.getElementById('image-test').innerHTML = 
+                            imageResults.join('<br>');
+                    }
+                });
+        });
+    </script>
+</body>
+</html>
