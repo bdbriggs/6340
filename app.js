@@ -49,6 +49,23 @@ app.get('/',         (req, res) => res.render('index',    { title: 'Home' }));
 app.get('/featured', (req, res) => res.render('featured', { title: 'Featured' }));
 app.get('/about',    (req, res) => res.render('about',    { title: 'About' }));
 app.get('/contact',  (req, res) => res.render('contact',  { title: 'Contact' }));
+app.get('/test',     async (req, res) => {
+  try {
+    const { pool } = require('./utils/database');
+    const [rows] = await pool.query('SELECT * FROM `projects` WHERE active = 1 ORDER BY id DESC LIMIT 48');
+    const photos = rows.map(r => ({
+      id: r.id ?? r.project_id ?? r.pid ?? null,
+      title: r.project_name ?? r.title ?? r.name ?? r.project_title ?? 'Untitled',
+      image_url: r.img_url ?? r.image_url ?? r.image ?? r.image_path ?? r.thumbnail ?? r.img ?? '',
+      caption: r.project_description ?? r.caption ?? r.description ?? r.summary ?? '',
+      created_at: r.open_date_gmt ?? r.created_at ?? r.created ?? r.date ?? r.timestamp ?? null,
+    }));
+    res.render('test', { title: 'Test', photos });
+  } catch (err) {
+    console.error('Test page error:', err);
+    res.render('test', { title: 'Test', photos: null });
+  }
+});
 
 /* ===== Image pages ===== */
 app.get('/popart',       (req, res) => res.render('popart',       { title: 'Pop Art Dumpster Fire' }));
@@ -56,7 +73,9 @@ app.get('/redrectangles', (req, res) => res.render('redrectangles', { title: 'Re
 app.get('/sakura',       (req, res) => res.render('sakura',       { title: 'Sakura' }));
 
 const galleryRouter = require("./routes/gallery");
+const healthRouter = require("./health-check");
 app.use(galleryRouter);
+app.use(healthRouter);
 
 /* ===== API: Contact form (JSON) ===== */
 app.post('/api/contact', async (req, res) => {
