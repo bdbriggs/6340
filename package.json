@@ -12,7 +12,8 @@
     "docker:build": "docker build -t dfc-contact-server .",
     "docker:run": "docker run -p 3000:3000 --env-file .env dfc-contact-server",
     "docker:compose": "docker-compose up -d",
-    "test": "echo 'No tests configured'"
+    "test": "echo 'No tests configured'",
+    "deploy-test": "node deploy-test.js"
   },
   "author": "Baily Atchley",
   "license": "MIT",
