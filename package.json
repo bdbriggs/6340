@@ -13,7 +13,8 @@
     "docker:run": "docker run -p 3000:3000 --env-file .env dfc-contact-server",
     "docker:compose": "docker-compose up -d",
     "test": "echo 'No tests configured'",
-    "deploy-test": "node deploy-test.js"
+    "deploy-test": "node deploy-test.js",
+    "start:fallback": "node start-fallback.js"
   },
   "author": "Baily Atchley",
   "license": "MIT",
