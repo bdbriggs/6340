@@ -36,8 +36,6 @@ async function connect() {
   pool = mysql
     .createPool({
       connectionLimit: 10,
-      acquireTimeout: 60000,
-      reconnect: true,
       uri: cString
     })
     .promise();
