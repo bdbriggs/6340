@@ -14,6 +14,15 @@ async function startServer() {
     console.log('🌍 Environment:', process.env.NODE_ENV || 'development');
     console.log('🔧 Port:', PORT);
     
+    // Check if we should use fallback mode
+    if (process.env.USE_FALLBACK === 'true') {
+      console.log('🔄 Using fallback mode - starting without database');
+      const { spawn } = require('child_process');
+      const fallback = spawn('node', ['start-fallback.js'], { stdio: 'inherit' });
+      fallback.on('exit', (code) => process.exit(code));
+      return;
+    }
+    
     // Check environment variables
     const requiredVars = ['MYSQL_HOST', 'MYSQL_USER', 'MYSQL_PASSWORD', 'MYSQL_DATABASE'];
     const missingVars = requiredVars.filter(varName => !process.env[varName]);
@@ -21,8 +30,13 @@ async function startServer() {
     if (missingVars.length > 0) {
       console.error('❌ Missing required environment variables:');
       missingVars.forEach(varName => console.error(`  - ${varName}`));
-      console.error('Please set these variables in your DigitalOcean dashboard');
-      console.error('Go to Settings → Environment Variables and add them');
+      console.error('');
+      console.error('🔧 QUICK FIX: Add this environment variable to skip database:');
+      console.error('   Name: USE_FALLBACK');
+      console.error('   Value: true');
+      console.error('');
+      console.error('Or set these database variables:');
+      console.error('   MYSQL_HOST, MYSQL_USER, MYSQL_PASSWORD, MYSQL_DATABASE');
       process.exit(1);
     }
     
