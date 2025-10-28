@@ -5,7 +5,7 @@
   "description": "Nodemailer contact form backend for Dumpster Fire Coding",
   "main": "server.js",
   "scripts": {
-    "start": "node start.js",
+    "start": "node start-simple.js",
     "start:legacy": "node server.js",
     "dev": "nodemon start.js",
     "build": "echo 'No build step required for this Node.js app'",
@@ -14,7 +14,8 @@
     "docker:compose": "docker-compose up -d",
     "test": "echo 'No tests configured'",
     "deploy-test": "node deploy-test.js",
-    "start:fallback": "node start-fallback.js"
+    "start:fallback": "node start-fallback.js",
+    "start:simple": "node start-simple.js"
   },
   "author": "Baily Atchley",
   "license": "MIT",
