@@ -4,18 +4,39 @@ const { pool } = require('../utils/database');
 
 const router = express.Router();
 
+// Fallback data when database is not available
+const fallbackPhotos = [
+  {
+    id: 1,
+    title: 'Sakura',
+    image_url: '/images/sakura.png',
+    caption: 'A delicate cherry blossom design capturing the ephemeral beauty of spring.',
+    created_at: '2025-10-10'
+  },
+  {
+    id: 2,
+    title: 'Red Rectangles',
+    image_url: '/images/RedRectangles.png',
+    caption: 'A vibrant collection of red rectangular shapes creating a bold geometric composition.',
+    created_at: '2025-10-10'
+  },
+  {
+    id: 3,
+    title: 'Pop Art Dumpster Fire',
+    image_url: '/images/PopArtDumpsterFire.png',
+    caption: 'A pop art style interpretation of the classic dumpster fire theme with vibrant colors.',
+    created_at: '2023-12-15'
+  }
+];
+
 router.get('/gallery', async (req, res, next) => {
   console.log('[gallery] Request received at:', new Date().toISOString());
-  console.log('[gallery] Request headers:', req.headers);
   
   try {
-    // Check if pool is available
-    if (!pool) {
-      console.error('[gallery] Database pool not initialized');
-      return res.status(500).render('error', { 
-        title: 'Database Error', 
-        message: 'Database connection not available. Please try again later.' 
-      });
+    // Check if database is properly configured
+    if (!pool || !process.env.MYSQL_HOST || process.env.MYSQL_HOST === 'undefined') {
+      console.log('[gallery] Using fallback data - database not configured');
+      return res.render('gallery', { title: 'Gallery', photos: fallbackPhotos });
     }
 
     console.log('[gallery] Database pool available, querying...');
@@ -41,33 +62,10 @@ router.get('/gallery', async (req, res, next) => {
     console.log('[gallery] Gallery rendered successfully');
     
   } catch (err) {
-    console.error('[gallery] Error occurred:', err);
-    console.error('[gallery] Error stack:', err.stack);
-    console.error('[gallery] Error code:', err.code);
+    console.error('[gallery] Database error, using fallback data:', err.message);
     
-    // Provide more specific error handling
-    if (err.code === 'ECONNREFUSED') {
-      console.error('[gallery] Database connection refused');
-      return res.status(500).render('error', { 
-        title: 'Database Connection Error', 
-        message: 'Unable to connect to database. Please check your database configuration.' 
-      });
-    } else if (err.code === 'ER_ACCESS_DENIED_ERROR') {
-      console.error('[gallery] Database authentication failed');
-      return res.status(500).render('error', { 
-        title: 'Database Authentication Error', 
-        message: 'Database authentication failed. Please check your credentials.' 
-      });
-    } else if (err.code === 'ER_BAD_DB_ERROR') {
-      console.error('[gallery] Database not found');
-      return res.status(500).render('error', { 
-        title: 'Database Error', 
-        message: 'Database not found. Please check your database name.' 
-      });
-    }
-    
-    console.error('[gallery] Unhandled error, passing to next middleware');
-    next(err);
+    // Use fallback data instead of showing error
+    res.render('gallery', { title: 'Gallery', photos: fallbackPhotos });
   }
 });
 
