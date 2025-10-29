@@ -62,6 +62,19 @@ app.get('/gallery', (req, res) => {
   res.render('gallery', { title: 'Gallery', photos });
 });
 
+// Individual image pages
+app.get('/sakura', (req, res) => {
+  res.render('sakura', { title: 'Sakura' });
+});
+
+app.get('/redrectangles', (req, res) => {
+  res.render('redrectangles', { title: 'Red Rectangles' });
+});
+
+app.get('/popart', (req, res) => {
+  res.render('popart', { title: 'Pop Art Dumpster Fire' });
+});
+
 // Health check
 app.get('/health', (req, res) => {
   res.json({
