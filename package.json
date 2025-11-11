@@ -15,7 +15,13 @@
     "test": "echo 'No tests configured'",
     "deploy-test": "node deploy-test.js",
     "start:fallback": "node start-fallback.js",
-    "start:simple": "node start-simple.js"
+    "start:simple": "node start-simple.js",
+    "compile": "hardhat compile",
+    "test:hardhat": "hardhat test",
+    "node": "hardhat node",
+    "deploy:local": "hardhat run scripts/deploy.js --network localhost",
+    "deploy:sepolia": "hardhat run scripts/deploy.js --network sepolia",
+    "verify": "hardhat verify"
   },
   "author": "Baily Atchley",
   "license": "MIT",
@@ -28,6 +34,9 @@
     "nodemailer": "^6.9.1"
   },
   "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^5.0.0",
+    "@openzeppelin/contracts": "^5.0.0",
+    "hardhat": "^2.22.0",
     "nodemon": "^3.1.10"
   }
 }
