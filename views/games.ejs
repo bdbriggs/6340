@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Games Gallery - Dumpster Fire Coding | Baily Atchley</title>
+  <meta name="description" content="Games Gallery at Dumpster Fire Coding. Experimental creative coding mini-games by Baily Atchley." />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+  <meta name="theme-color" content="#000000" />
+  <meta name="color-scheme" content="dark" />
+
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://dumpsterfirecoding.com/games" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://dumpsterfirecoding.com/games" />
+  <meta property="og:title" content="Games Gallery - Dumpster Fire Coding" />
+  <meta property="og:description" content="A tiny arcade of creative coding experiments and mini-games." />
+  <meta property="og:image" content="https://dumpsterfirecoding.com/images/dumpsterfire.png" />
+  <meta property="og:site_name" content="Dumpster Fire Coding" />
+  <meta property="og:locale" content="en_US" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:url" content="https://dumpsterfirecoding.com/games" />
+  <meta name="twitter:title" content="Games Gallery - Dumpster Fire Coding" />
+  <meta name="twitter:description" content="Creative coding games and interactive sketches by Baily Atchley." />
+  <meta name="twitter:image" content="https://dumpsterfirecoding.com/images/dumpsterfire.png" />
+  <meta name="twitter:creator" content="@goforbaily" />
+  <meta name="twitter:site" content="@goforbaily" />
+
+  <!-- Security & CSP (same as index) -->
+  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+  <meta http-equiv="X-Frame-Options" content="DENY" />
+  <meta http-equiv="X-XSS-Protection" content="1; mode=block" />
+  <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
+  <meta http-equiv="Cross-Origin-Opener-Policy" content="same-origin" />
+  <meta http-equiv="Cross-Origin-Embedder-Policy" content="require-corp" />
+  <meta http-equiv="Strict-Transport-Security" content="max-age=31536000; includeSubDomains" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; img-src 'self' data: https:; font-src 'self' https://cdn.jsdelivr.net; connect-src 'self' https:; frame-ancestors 'none';" />
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+
+  <!-- Your custom CSS -->
+  <link rel="stylesheet" href="/css/style.css" />
+
+  <style>
+    .games-hero {
+      padding: 3rem 0 1rem;
+      text-align: center;
+    }
+
+    .games-hero h1 {
+      margin-bottom: 0.5rem;
+    }
+
+    .games-hero p {
+      color: #adb5bd;
+      max-width: 640px;
+      margin: 0 auto 2rem;
+    }
+
+    .games-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.75rem;
+      margin-bottom: 3rem;
+    }
+
+    .game-card {
+      background-color: #050608;
+      border-radius: 1rem;
+      border: 1px solid #343a40;
+      padding: 1.25rem;
+      box-shadow: 0 18px 45px rgba(0, 0, 0, 0.55);
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .game-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 0.5rem;
+    }
+
+    .game-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+
+    .game-tag {
+      font-size: 0.75rem;
+      padding: 0.1rem 0.6rem;
+      border-radius: 999px;
+      border: 1px solid #495057;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #ced4da;
+    }
+
+    .game-description {
+      font-size: 0.9rem;
+      color: #adb5bd;
+      min-height: 2.5em;
+    }
+
+    .game-placeholder {
+      background: radial-gradient(circle at top, #111827, #020617);
+      border-radius: 0.75rem;
+      border: 1px dashed #495057;
+      aspect-ratio: 16 / 9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #6c757d;
+      font-size: 0.85rem;
+      text-align: center;
+      padding: 0.75rem;
+    }
+
+    .game-meta {
+      font-size: 0.75rem;
+      color: #868e96;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+  </style>
+</head>
+<body class="bg-dark text-light">
+
+  <!-- ===== HEADER / NAVBAR (same as index, but Games active) ===== -->
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-black border-bottom border-secondary" role="navigation" aria-label="Main navigation">
+      <div class="container">
+        <a class="navbar-brand" href="/" aria-label="Dumpster Fire Coding - Home">Dumpster Fire Coding</a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation menu">
+          <span class="navbar-toggler-icon" aria-hidden="true"></span>
+        </button>
+
+        <div id="mainNav" class="collapse navbar-collapse">
+          <ul class="navbar-nav ms-auto align-items-lg-center" role="menubar">
+            <li class="nav-item" role="none"><a class="nav-link" href="/" role="menuitem">Home</a></li>
+            <li class="nav-item" role="none"><a class="nav-link" href="/featured" role="menuitem">Featured</a></li>
+            <li class="nav-item" role="none"><a class="nav-link" href="/gallery" role="menuitem">Gallery</a></li>
+            <li class="nav-item" role="none"><a class="nav-link active" href="/games" role="menuitem" aria-current="page">Games</a></li>
+            <li class="nav-item" role="none"><a class="nav-link" href="/about" role="menuitem">About</a></li>
+            <li class="nav-item" role="none"><a class="nav-link" href="/contact" role="menuitem">Contact</a></li>
+
+            <li class="nav-item ms-lg-3" role="none">
+              <button id="connectWalletBtn"
+                      type="button"
+                      class="btn btn-success wallet-btn w-100 w-lg-auto"
+                      aria-label="Connect your MetaMask wallet">
+                Connect Wallet
+              </button>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- ===== MAIN / GAMES GALLERY ===== -->
+  <main class="py-5" role="main">
+    <div class="container">
+      <section class="games-hero">
+        <h1 class="display-5 mb-2">Games Gallery</h1>
+        <p>
+          A tiny arcade of creative coding experiments. These boxes are waiting
+          for their p5.js brains — once the sketches are converted, each one will
+          come alive here.
+        </p>
+      </section>
+
+      <section class="games-grid" aria-label="Interactive games gallery">
+        <!-- Game 1: Rocket -->
+        <article class="game-card">
+          <header class="game-header">
+            <h2 class="game-title">Rocket Boost</h2>
+            <span class="game-tag">Coming soon</span>
+          </header>
+          <p class="game-description">
+            A tiny rocket that blasts around the screen with mouse clicks.
+          </p>
+          <div class="game-placeholder" id="game-rocket">
+            Canvas placeholder — p5.js rocket sketch will mount here.
+          </div>
+          <div class="game-meta">
+            <span>Controls: Mouse click</span>
+            <span>Engine: p5.js (planned)</span>
+          </div>
+        </article>
+
+        <!-- Game 2: Shockwave -->
+        <article class="game-card">
+          <header class="game-header">
+            <h2 class="game-title">Shockwave Bounce</h2>
+            <span class="game-tag">Coming soon</span>
+          </header>
+          <p class="game-description">
+            A bouncing ball that sends out expanding shockwaves on impact.
+          </p>
+          <div class="game-placeholder" id="game-shockwave">
+            Canvas placeholder — p5.js shockwave sketch will mount here.
+          </div>
+          <div class="game-meta">
+            <span>Controls: Mouse click</span>
+            <span>Engine: p5.js (planned)</span>
+          </div>
+        </article>
+
+        <!-- Game 3: Cute Chomp Creature -->
+        <article class="game-card">
+          <header class="game-header">
+            <h2 class="game-title">Cute Chomp Creature</h2>
+            <span class="game-tag">Coming soon</span>
+          </header>
+          <p class="game-description">
+            A hungry cartoon blob that gobbles friendly shapes and dodges poison.
+          </p>
+          <div class="game-placeholder" id="game-chomp">
+            Canvas placeholder — p5.js chomp game will mount here.
+          </div>
+          <div class="game-meta">
+            <span>Controls: Mouse + click</span>
+            <span>Engine: p5.js (planned)</span>
+          </div>
+        </article>
+
+        <!-- Future slot -->
+        <article class="game-card">
+          <header class="game-header">
+            <h2 class="game-title">Future Game Slot</h2>
+            <span class="game-tag">Reserved</span>
+          </header>
+          <p class="game-description">
+            Another experimental mini-game will live here soon.
+          </p>
+          <div class="game-placeholder" id="game-future">
+            Canvas placeholder — future p5.js sketch will mount here.
+          </div>
+          <div class="game-meta">
+            <span>Controls: TBD</span>
+            <span>Engine: p5.js (planned)</span>
+          </div>
+        </article>
+      </section>
+    </div>
+  </main>
+
+  <!-- ===== FOOTER (same as index) ===== -->
+  <footer class="py-4 bg-black border-top border-secondary" role="contentinfo">
+    <div class="container d-flex justify-content-between small">
+      <span>© <span id="year"></span> Baily</span>
+      <nav aria-label="Social media links">
+        <a href="https://github.com/bdbriggs/6340" target="_blank" rel="noopener noreferrer" aria-label="Visit our GitHub repository">GitHub</a> ·
+        <a href="https://www.instagram.com/goforbaily/" target="_blank" rel="noopener noreferrer" aria-label="Follow us on Instagram">Instagram</a>
+      </nav>
+    </div>
+  </footer>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" defer crossorigin="anonymous"></script>
+
+  <!-- p5.js (for when you start adding the sketches) -->
+  <script src="https://cdn.jsdelivr.net/npm/p5@1.9.0/lib/p5.min.js" defer crossorigin="anonymous"></script>
+
+  <!-- Wallet & shared JS (same as index, if you want) -->
+  <script src="/js/wallet.js" defer></script>
+
+  <!-- Tiny util: current year -->
+  <script defer>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+
+  <!-- Later you can add:
+  <script src="/js/game-rocket.js" defer></script>
+  <script src="/js/game-shockwave.js" defer></script>
+  <script src="/js/game-chomp.js" defer></script>
+  where each p5 sketch calls canvas.parent('game-rocket') etc.
+  -->
+</body>
+</html>
