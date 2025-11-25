@@ -76,6 +76,11 @@
   }
 }
 
+/* Navbar brand - remove bold font weight */
+.navbar-brand {
+  font-weight: normal !important;
+}
+
 /* Wallet button styles – moved OUT of #splash-wrap */
 .wallet-btn {
   background-color: #4CAF50; /* green */

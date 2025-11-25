@@ -62,6 +62,17 @@ app.get('/gallery', (req, res) => {
   res.render('gallery', { title: 'Gallery', photos });
 });
 
+// Games gallery
+app.get('/games', (req, res) => {
+  const games = [
+    { id: 1, title: 'Rocket Boost', description: 'A tiny rocket that boosts with clicks.', status: 'coming soon' },
+    { id: 2, title: 'Ricochet', description: 'A bouncy ball + expanding waves.', status: 'coming soon' },
+    { id: 3, title: 'Chomper', description: 'A cartoon blob that eats food and avoids poison.', status: 'coming soon' },
+    { id: 4, title: 'Future Game Slot', description: 'Another experiment is on the way.', status: 'reserved' }
+  ];
+  res.render('games', { title: 'Games Gallery', games });
+});
+
 // Individual image pages
 app.get('/sakura', (req, res) => {
   res.render('sakura', { title: 'Sakura' });

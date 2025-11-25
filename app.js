@@ -73,8 +73,10 @@ app.get('/redrectangles', (req, res) => res.render('redrectangles', { title: 'Re
 app.get('/sakura',       (req, res) => res.render('sakura',       { title: 'Sakura' }));
 
 const galleryRouter = require("./routes/gallery");
+const gamesRouter = require("./routes/games");
 const healthRouter = require("./health-check");
 app.use(galleryRouter);
+app.use('/games', gamesRouter);
 app.use(healthRouter);
 
 /* ===== API: Contact form (JSON) ===== */
