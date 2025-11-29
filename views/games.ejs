@@ -100,6 +100,14 @@
       text-transform: uppercase;
       letter-spacing: 0.06em;
       color: #ced4da;
+      transition: all 0.2s ease;
+    }
+
+    .game-tag:hover {
+      background-color: #4CAF50;
+      border-color: #4CAF50;
+      color: white;
+      transform: scale(1.05);
     }
 
     .game-description {
@@ -112,14 +120,24 @@
       background: radial-gradient(circle at top, #111827, #020617);
       border-radius: 0.75rem;
       border: 1px dashed #495057;
-      aspect-ratio: 16 / 9;
+      aspect-ratio: 4 / 3;
       display: flex;
       align-items: center;
       justify-content: center;
       color: #6c757d;
       font-size: 0.85rem;
       text-align: center;
-      padding: 0.75rem;
+      padding: 0;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .game-placeholder canvas {
+      max-width: 100%;
+      max-height: 100%;
+      width: 100%;
+      height: auto;
+      display: block;
     }
 
     .game-meta {
@@ -180,21 +198,25 @@
       </section>
 
       <section class="games-grid" aria-label="Interactive games gallery">
-        <!-- Game 1: Rocket -->
+        <!-- Game 1: Rocket Boost -->
         <article class="game-card">
           <header class="game-header">
             <h2 class="game-title">Rocket Boost</h2>
-            <span class="game-tag">Coming soon</span>
+            <a href="/rocketboost" class="game-tag" style="text-decoration: none; color: #ced4da;">Play now</a>
           </header>
           <p class="game-description">
-            A tiny rocket that blasts around the screen with mouse clicks.
+            A tiny rocket that blasts through space. Click to boost!
           </p>
-          <div class="game-placeholder" id="game-rocket">
-            Canvas placeholder — p5.js rocket sketch will mount here.
+          <div class="game-placeholder" id="game-rocket" style="padding: 0; border: none; background: none;">
+            <img 
+              src="/images/RocketShipThumbnail.png" 
+              alt="Rocket Boost game thumbnail - A tiny rocket that blasts through space"
+              style="width: 100%; height: 100%; object-fit: cover; border-radius: 0.75rem;"
+            />
           </div>
           <div class="game-meta">
-            <span>Controls: Mouse click</span>
-            <span>Engine: p5.js (planned)</span>
+            <span>Controls: Click to boost</span>
+            <span>Engine: p5.js</span>
           </div>
         </article>
 
@@ -202,17 +224,21 @@
         <article class="game-card">
           <header class="game-header">
             <h2 class="game-title">Ricochet</h2>
-            <span class="game-tag">Coming soon</span>
+            <a href="/ricochet" class="game-tag" style="text-decoration: none; color: #ced4da;">Play now</a>
           </header>
           <p class="game-description">
             A bouncing ball that sends out expanding shockwaves on impact.
           </p>
-          <div class="game-placeholder" id="game-ricochet">
-            Canvas placeholder — p5.js ricochet sketch will mount here.
+          <div class="game-placeholder" id="game-ricochet" style="padding: 0; border: none; background: none;">
+            <img 
+              src="/images/RicochetThumbnail.png" 
+              alt="Ricochet game thumbnail - A bouncing ball that sends out expanding shockwaves on impact"
+              style="width: 100%; height: 100%; object-fit: cover; border-radius: 0.75rem;"
+            />
           </div>
           <div class="game-meta">
             <span>Controls: Mouse click</span>
-            <span>Engine: p5.js (planned)</span>
+            <span>Engine: p5.js</span>
           </div>
         </article>
 
@@ -220,35 +246,43 @@
         <article class="game-card">
           <header class="game-header">
             <h2 class="game-title">Chomper</h2>
-            <span class="game-tag">Coming soon</span>
+            <a href="/chomper" class="game-tag" style="text-decoration: none; color: #ced4da;">Play now</a>
           </header>
           <p class="game-description">
             A hungry cartoon blob that gobbles friendly shapes and dodges poison.
           </p>
-          <div class="game-placeholder" id="game-chomper">
-            Canvas placeholder — p5.js chomper game will mount here.
+          <div class="game-placeholder" id="game-chomper" style="padding: 0; border: none; background: none;">
+            <img 
+              src="/images/ChomperThumbnail.png" 
+              alt="Chomper game thumbnail - A hungry cartoon blob that gobbles friendly shapes and dodges poison"
+              style="width: 100%; height: 100%; object-fit: cover; border-radius: 0.75rem;"
+            />
           </div>
           <div class="game-meta">
-            <span>Controls: Mouse + click</span>
-            <span>Engine: p5.js (planned)</span>
+            <span>Controls: Mouse to move, click to boost</span>
+            <span>Engine: p5.js</span>
           </div>
         </article>
 
-        <!-- Future slot -->
+        <!-- Fuego Fury -->
         <article class="game-card">
           <header class="game-header">
-            <h2 class="game-title">Future Game Slot</h2>
-            <span class="game-tag">Reserved</span>
+            <h2 class="game-title">Fuego Fury</h2>
+            <a href="/fuegofury" class="game-tag" style="text-decoration: none; color: #ced4da;">Play now</a>
           </header>
           <p class="game-description">
-            Another experimental mini-game will live here soon.
+            Catch falling trash in the dumpster fire. Move your mouse to catch the trash!
           </p>
-          <div class="game-placeholder" id="game-future">
-            Canvas placeholder — future p5.js sketch will mount here.
+          <div class="game-placeholder" id="game-future" style="padding: 0; border: none; background: none;">
+            <img 
+              src="/images/FuegoFury.png" 
+              alt="Fuego Fury game thumbnail"
+              style="width: 100%; height: 100%; object-fit: cover; border-radius: 0.75rem;"
+            />
           </div>
           <div class="game-meta">
-            <span>Controls: TBD</span>
-            <span>Engine: p5.js (planned)</span>
+            <span>Controls: Mouse to move</span>
+            <span>Engine: p5.js</span>
           </div>
         </article>
       </section>
@@ -275,6 +309,10 @@
   <!-- Wallet & shared JS (same as index, if you want) -->
   <script src="/js/wallet.js" defer></script>
 
+  <!-- Chomper game (commented out - using thumbnail instead)
+  <script src="/js/chomper.js" defer></script>
+  -->
+
   <!-- Tiny util: current year -->
   <script defer>
     document.getElementById('year').textContent = new Date().getFullYear();
@@ -283,7 +321,6 @@
   <!-- Later you can add:
   <script src="/js/game-rocket.js" defer></script>
   <script src="/js/game-shockwave.js" defer></script>
-  <script src="/js/game-chomp.js" defer></script>
   where each p5 sketch calls canvas.parent('game-rocket') etc.
   -->
 </body>

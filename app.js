@@ -72,6 +72,12 @@ app.get('/popart',       (req, res) => res.render('popart',       { title: 'Pop 
 app.get('/redrectangles', (req, res) => res.render('redrectangles', { title: 'Red Rectangles' }));
 app.get('/sakura',       (req, res) => res.render('sakura',       { title: 'Sakura' }));
 
+/* ===== Game pages ===== */
+app.get('/chomper',      (req, res) => res.render('chomper-game', { title: 'Chomper - Play Now' }));
+app.get('/rocketboost',   (req, res) => res.render('rocketboost-game', { title: 'Rocket Boost - Play Now' }));
+app.get('/fuegofury',    (req, res) => res.render('fuegofury-game', { title: 'Fuego Fury - Play Now' }));
+app.get('/ricochet',     (req, res) => res.render('ricochet-game', { title: 'Ricochet - Play Now' }));
+
 const galleryRouter = require("./routes/gallery");
 const gamesRouter = require("./routes/games");
 const healthRouter = require("./health-check");

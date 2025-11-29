@@ -68,9 +68,34 @@ app.get('/games', (req, res) => {
     { id: 1, title: 'Rocket Boost', description: 'A tiny rocket that boosts with clicks.', status: 'coming soon' },
     { id: 2, title: 'Ricochet', description: 'A bouncy ball + expanding waves.', status: 'coming soon' },
     { id: 3, title: 'Chomper', description: 'A cartoon blob that eats food and avoids poison.', status: 'coming soon' },
-    { id: 4, title: 'Future Game Slot', description: 'Another experiment is on the way.', status: 'reserved' }
+    { id: 4, title: 'Fuego Fury', description: 'Another experiment is on the way.', status: 'reserved' }
   ];
   res.render('games', { title: 'Games Gallery', games });
+});
+
+// Chomper game page
+app.get('/chomper', (req, res) => {
+  res.render('chomper-game', { title: 'Chomper - Play Now' });
+});
+
+// Rocket Boost game page
+app.get('/rocketboost', (req, res) => {
+  res.render('rocketboost-game', { title: 'Rocket Boost - Play Now' });
+});
+
+// Fuego Fury game page
+app.get('/fuegofury', (req, res) => {
+  res.render('fuegofury-game', { title: 'Fuego Fury - Play Now' });
+});
+
+// Ricochet game page
+app.get('/ricochet', (req, res) => {
+  res.render('ricochet-game', { title: 'Ricochet - Play Now' });
+});
+
+// Rocket Boost game page
+app.get('/rocketboost', (req, res) => {
+  res.render('rocketboost-game', { title: 'Rocket Boost - Play Now' });
 });
 
 // Individual image pages
